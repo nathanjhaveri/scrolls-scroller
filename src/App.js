@@ -9,7 +9,7 @@ function ErrorLoading(error) {
 }
 
 function Loading() {
-  return <div>Loading...</div>;
+  return <img src={logo} className="App-logo" alt="logo" />;
 }
 
 function App() {
@@ -20,7 +20,11 @@ function App() {
   useEffect(() => {
     const fetchCards = async () => {
       try {
-        const res = await fetch("https://api.elderscrollslegends.io/v1/cards");
+        const page = 0;
+        const pageSize = 20;
+        const res = await fetch(
+          `https://api.elderscrollslegends.io/v1/cards?pageSize=${pageSize}&page=${page}`
+        );
         const data = await res.json();
         const cards = data.cards.map((card) => ({
           imageUrl: card.imageUrl,

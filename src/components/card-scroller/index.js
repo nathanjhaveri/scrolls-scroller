@@ -6,8 +6,8 @@ import "./style.css";
 export default function CardScroller({ cards }) {
   return (
     <ul className="card-scroller">
-      {cards.map((card) => (
-        <li>
+      {cards.map((card, i) => (
+        <li key={`card-${i}`}>
           <Card {...card} />
         </li>
       ))}
@@ -21,7 +21,7 @@ CardScroller.propTypes = {
       imageUrl: string.isRequired,
       name: string.isRequired,
       type: string.isRequired,
-      text: string.isRequired,
+      text: string,
       setName: string.isRequired,
     })
   ),

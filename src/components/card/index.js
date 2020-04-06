@@ -9,8 +9,12 @@ export default function Card({ imageUrl, name, type, text, setName }) {
       <dl className="card-attributes">
         <dt>Name</dt>
         <dd>{name}</dd>
-        <dt>Text</dt>
-        <dd>{text}</dd>
+        {text && (
+          <>
+            <dt>Text</dt>
+            <dd>{text}</dd>
+          </>
+        )}
         <dt>Set Name</dt>
         <dd>{setName}</dd>
         <dt>Type</dt>
@@ -24,6 +28,6 @@ Card.propTypes = {
   imageUrl: string.isRequired,
   name: string.isRequired,
   type: string.isRequired,
-  text: string.isRequired,
+  text: string,
   setName: string.isRequired,
 };
