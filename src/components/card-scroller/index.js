@@ -1,10 +1,11 @@
 import React from "react";
 import { arrayOf, shape, string } from "prop-types";
-import Card from "./card";
+import Card from "../card";
+import "./style.css";
 
 export default function CardScroller({ cards }) {
   return (
-    <ul>
+    <ul className="card-scroller">
       {cards.map((card) => (
         <li>
           <Card {...card} />
@@ -21,7 +22,7 @@ CardScroller.propTypes = {
       name: string.isRequired,
       type: string.isRequired,
       text: string.isRequired,
-      set: string.isRequired,
+      setName: string.isRequired,
     })
   ),
 };

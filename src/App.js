@@ -22,7 +22,15 @@ function App() {
       try {
         const res = await fetch("https://api.elderscrollslegends.io/v1/cards");
         const data = await res.json();
-        setCards(data.cards);
+        const cards = data.cards.map((card) => ({
+          imageUrl: card.imageUrl,
+          name: card.name,
+          type: card.type,
+          text: card.text,
+          setName: card.set.name,
+        }));
+
+        setCards(cards);
       } catch (e) {
         setError(e);
       }
