@@ -1,32 +1,28 @@
 import React, { useEffect, useState } from "react";
-import logo from "./logo.svg";
 import CardScroller from "./components/card-scroller";
+import { fetchCards } from "./api";
 
 import "./App.css";
 
 function ErrorLoading(error) {
-  return <div>Error {error.message}</div>;
-}
-
-function Loading() {
-  return <img src={logo} className="App-logo" alt="logo" />;
+  return <div>Error {JSON.stringify(error)}</div>;
 }
 
 function App() {
   const [error, setError] = useState(null);
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const [cards, setCards] = useState([]);
+  const [page, setPage] = useState(0);
+  const [totalCards, setTotalCards] = useState(1);
 
   useEffect(() => {
-    const fetchCards = async () => {
+    const loadCards = async () => {
+      setIsLoading(true);
+
       try {
-        const page = 0;
-        const pageSize = 20;
-        const res = await fetch(
-          `https://api.elderscrollslegends.io/v1/cards?pageSize=${pageSize}&page=${page}`
-        );
-        const data = await res.json();
-        const cards = data.cards.map((card) => ({
+        const { _totalCount, cards: newCards } = await fetchCards(page, "");
+        const cards = newCards.map((card) => ({
           imageUrl: card.imageUrl,
           name: card.name,
           type: card.type,
@@ -34,23 +30,35 @@ function App() {
           setName: card.set.name,
         }));
 
-        setCards(cards);
+        setTotalCards(_totalCount);
+        setCards((oldCards) => [...oldCards, ...cards]);
       } catch (e) {
-        setError(e);
+        setError("Error fetching cards");
+        throw e;
       }
 
-      setIsLoaded(true);
+      setIsLoading(false);
     };
 
-    fetchCards();
-  }, []);
+    loadCards();
+  }, [page]);
+
+  const onScrollEnd = () => {
+    if (cards.length < totalCards && !isLoading) {
+      setPage((oldPage) => oldPage + 1);
+    }
+  };
 
   if (error) {
     return <ErrorLoading error={error} />;
-  } else if (!isLoaded) {
-    return <Loading />;
   } else {
-    return <CardScroller cards={cards} />;
+    return (
+      <CardScroller
+        cards={cards}
+        onScrollEnd={onScrollEnd}
+        isLoading={isLoading}
+      />
+    );
   }
 }
 

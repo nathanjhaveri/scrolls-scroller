@@ -1,9 +1,13 @@
 import React from "react";
-import { arrayOf, shape, string } from "prop-types";
+import { arrayOf, shape, string, func, bool } from "prop-types";
 import Card from "../card";
 import "./style.css";
+import useScrollBottom from "../../hooks/use-scroll-bottom";
+import LoadingSpinner from "../loading-spinner";
 
-export default function CardScroller({ cards }) {
+export default function CardScroller({ cards, onScrollEnd, isLoading }) {
+  useScrollBottom(onScrollEnd);
+
   return (
     <ul className="card-scroller">
       {cards.map((card, i) => (
@@ -11,6 +15,7 @@ export default function CardScroller({ cards }) {
           <Card {...card} />
         </li>
       ))}
+      <li><LoadingSpinner isLoading={isLoading} /></li>
     </ul>
   );
 }
@@ -25,4 +30,6 @@ CardScroller.propTypes = {
       setName: string.isRequired,
     })
   ),
+  onScrollEnd: func.isRequired,
+  isLoading: bool.isRequired
 };
