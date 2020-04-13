@@ -54,8 +54,10 @@ function App() {
   };
 
   const onSearch = (query) => {
-    setCards([]);
-    setNameQuery(query);
+    if (query !== nameQuery) {
+      setCards([]);
+      setNameQuery(query);
+    }
   };
 
   if (error) {

@@ -10,12 +10,18 @@ export default function CardScroller({ cards, onScrollEnd, isLoading }) {
 
   return (
     <ul className="card-scroller">
-      {cards.map((card, i) => (
-        <li key={`card-${i}`}>
-          <Card {...card} />
-        </li>
-      ))}
-      <li><LoadingSpinner isLoading={isLoading} /></li>
+      {cards.length === 0 && !isLoading ? (
+        <div>No cards found</div>
+      ) : (
+        cards.map((card, i) => (
+          <li key={`card-${i}`}>
+            <Card {...card} />
+          </li>
+        ))
+      )}
+      <li>
+        <LoadingSpinner isLoading={isLoading} />
+      </li>
     </ul>
   );
 }
@@ -31,5 +37,5 @@ CardScroller.propTypes = {
     })
   ),
   onScrollEnd: func.isRequired,
-  isLoading: bool.isRequired
+  isLoading: bool.isRequired,
 };

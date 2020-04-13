@@ -7,7 +7,7 @@ export async function fetchCards(page, name) {
   };
 
   const queryParamReducer = (params, [key, val]) => {
-    if (val) {
+    if (val && val !== "") {
       params.append(key, val);
     }
 
