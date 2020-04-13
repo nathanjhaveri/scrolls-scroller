@@ -1,0 +1,6 @@
+.search {
+  margin: 2rem;
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  column-gap: .25rem;
+}

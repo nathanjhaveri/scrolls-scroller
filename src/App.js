@@ -55,6 +55,7 @@ function App() {
 
   const onSearch = (query) => {
     if (query !== nameQuery) {
+      setPage(0);
       setCards([]);
       setNameQuery(query);
     }
@@ -64,14 +65,15 @@ function App() {
     return <ErrorLoading error={error} />;
   } else {
     return (
-      <div>
+      <main className="main">
         <Search onSubmit={onSearch} />
+
         <CardScroller
           cards={cards}
           onScrollEnd={onScrollEnd}
           isLoading={isLoading}
         />
-      </div>
+      </main>
     );
   }
 }

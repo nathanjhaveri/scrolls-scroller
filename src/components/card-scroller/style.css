@@ -3,7 +3,13 @@
   display: grid;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 640px) {
+  .card-scroller {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media only screen and (min-width: 1008px) {
   .card-scroller {
     grid-template-columns: 1fr 1fr 1fr;
   }
