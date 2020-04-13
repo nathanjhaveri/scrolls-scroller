@@ -6,8 +6,14 @@ export default function Search({ onSubmit }) {
   const [query, setQuery] = useState("");
 
   const onSearch = (event) => {
-      event.preventDefault();
+    event.preventDefault();
+    onSubmit(query);
+  };
+
+  const onKeyPress = (e) => {
+    if (e.key === "Enter") {
       onSubmit(query);
+    }
   };
 
   return (
@@ -17,6 +23,7 @@ export default function Search({ onSubmit }) {
         name="query"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
+        onKeyPress={onKeyPress}
       />
       <input type="submit" value="Search" onClick={onSearch} />
     </div>
