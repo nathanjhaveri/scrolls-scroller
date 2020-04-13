@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import CardScroller from "./components/card-scroller";
+import Search from "./components/search";
 import { fetchCards } from "./api";
 
 import "./App.css";
@@ -11,17 +12,20 @@ function ErrorLoading(error) {
 function App() {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-
   const [cards, setCards] = useState([]);
   const [page, setPage] = useState(0);
   const [totalCards, setTotalCards] = useState(1);
+  const [nameQuery, setNameQuery] = useState("");
 
   useEffect(() => {
     const loadCards = async () => {
       setIsLoading(true);
 
       try {
-        const { _totalCount, cards: newCards } = await fetchCards(page, "");
+        const { _totalCount, cards: newCards } = await fetchCards(
+          page,
+          nameQuery
+        );
         const cards = newCards.map((card) => ({
           imageUrl: card.imageUrl,
           name: card.name,
@@ -41,7 +45,7 @@ function App() {
     };
 
     loadCards();
-  }, [page]);
+  }, [page, nameQuery]);
 
   const onScrollEnd = () => {
     if (cards.length < totalCards && !isLoading) {
@@ -49,15 +53,23 @@ function App() {
     }
   };
 
+  const onSearch = (query) => {
+    setCards([]);
+    setNameQuery(query);
+  };
+
   if (error) {
     return <ErrorLoading error={error} />;
   } else {
     return (
-      <CardScroller
-        cards={cards}
-        onScrollEnd={onScrollEnd}
-        isLoading={isLoading}
-      />
+      <div>
+        <Search onSubmit={onSearch} />
+        <CardScroller
+          cards={cards}
+          onScrollEnd={onScrollEnd}
+          isLoading={isLoading}
+        />
+      </div>
     );
   }
 }
