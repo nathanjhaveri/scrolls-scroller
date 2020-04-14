@@ -2,7 +2,9 @@
 
 ## To run:
 
-Requires latest nodejs. Install with ` npm install``. To run: `npm start```.
+Requires latest nodejs. Install with ` npm install``. To run locally: `npm start```.
+
+Hosted version: [https://jhaveri.net/scrolls-scroller/](https://jhaveri.net/scrolls-scroller/)
 
 ## About
 
@@ -10,8 +12,10 @@ Provides a simple interface for scrolling through and searching elder scrolls ca
 
 ## Requirements
 
-I mostly focused on the plumbing/usability over UI design.  I used React and node
-to stand up a simple page that could hit the requirements below:
+I mostly focused on the plumbing/usability over UI design.  I used React and
+node to stand up a simple page that could hit the requirements below.  I set up
+hosting for a production version (webpacked assets) at
+[https://jhaveri.net/scrolls-scroller/](https://jhaveri.net/scrolls-scroller/)
 
 - [x] Show results in a card grid format with the image prominently displayed.
 - [x] Each card displays: Image, Name, Text, Set Name, and Type. Additional fields are optional.
