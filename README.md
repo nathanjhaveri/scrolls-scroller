@@ -2,7 +2,7 @@
 
 ## To run:
 
-Requires latest nodejs. Install with ` npm install``. To run locally: `npm start```.
+Requires latest nodejs. Install with ```npm install```. To run locally: ```npm start```.
 
 Hosted version: [https://jhaveri.net/scrolls-scroller/](https://jhaveri.net/scrolls-scroller/)
 
